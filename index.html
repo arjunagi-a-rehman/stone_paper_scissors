@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stone paper scissors</title>
+  <style>
+    body{
+      align-items: center;
+      align-content: center;
+      text-align: center;
+    }
+    .button{
+      height: 100px;
+      width: 100px;
+      border: none;
+      margin: 10px;
+      background-color: rgb(164, 212, 130);
+      border-radius: 50px;
+      font-size: 50px;
+      cursor: pointer;
+    }
+    p{
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>stone paper scissors</h1>
+  <button class="button" onclick="eveluvation('🪨')">🪨</button>
+  <button class="button" onclick="eveluvation('📃')">📃</button>
+  <button class="button" onclick="eveluvation('✂️')">✂️</button>
+  <p id="user-choice">You chose: </p>
+  <p id="computer-choice">computer choose</p>
+  <p id="result"> result</p>
+  
+  <script>
+    let user_choice=document.querySelector('#user-choice');
+    let computer_choice=document.querySelector('#computer-choice');
+    let result=document.querySelector('#result');
+    console.log(result.textContent);
+    let eveluvation = (choice)=>{
+      user_choice.textContent='You chose: '+choice;
+      let cuhoise='';
+      let rand=Math.random()*3;
+      
+      if(rand>0 && rand <=1){
+        computer_choice.textContent='computer choose: '+'🪨';
+        cuhoise='🪨';
+      }
+      else if(rand>1&&rand<=2){
+        computer_choice.textContent='computer choose: '+'📃';
+        cuhoise='📃';
+      }
+      else {
+        computer_choice.textContent='computer choose: '+'✂️';
+        cuhoise='✂️';
+      }
+      
+      if(choice===cuhoise){
+        result.textContent='result: Tie 👔'
+      }else if(choice==='🪨'&&cuhoise==='✂️' || choice==='✂️' && cuhoise==='📃' || choice==='📃'&& cuhoise==='🪨'){
+        result.textContent='result: You Win 🏆'
+      }else{
+        result.textContent='result: You lost 😵‍💫'
+      }
+    }
+  </script>
+</body>
+</html>
