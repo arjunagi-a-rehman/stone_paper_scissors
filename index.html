@@ -23,6 +23,18 @@
     p{
       font-size: 20px;
     }
+
+    #score{
+      display:inline-flex;
+    }
+    .score{
+      margin: 2px 4px;
+    }
+    #reset-butt{
+      height: 40px;
+      width: 70px;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
@@ -33,12 +45,55 @@
   <p id="user-choice">You chose: </p>
   <p id="computer-choice">computer choose</p>
   <p id="result"> result</p>
-  
+  <br>
+
+  <h3>Scores</h3>
+  <div id="score">
+    <p class="score" id="win">win</p>
+    <p class="score" id="lost">lost</p>
+    <p class="score" id="tie">tie</p>
+  </div>
+  <button id="reset-butt" onclick="reset_score()">reset</button>
   <script>
+    let score;
+    console.log(localStorage.getItem("score"));
+    if(localStorage.getItem("score")){
+      score=JSON.parse(localStorage.getItem('score'));
+    }else{
+      score={
+      win:0,
+      lost:0,
+      tie:0
+    }
+    }
+    reset_score=()=>{
+      score={
+      win:0,
+      lost:0,
+      tie:0
+    }
+    user_choice.textContent='You chose: ';
+    computer_choice.textContent='computer choose: ';
+    result.textContent='result: ';
+    setScores();
+    localStorage.setItem("score",JSON.stringify(score));
+    }
+
+    let win_element=document.querySelector('#win');
+    let lost_elemnet=document.querySelector('#lost');
+    let tie_element=document.querySelector('#tie');
+
     let user_choice=document.querySelector('#user-choice');
     let computer_choice=document.querySelector('#computer-choice');
     let result=document.querySelector('#result');
     console.log(result.textContent);
+
+    function setScores(){
+      win_element.textContent='Win: '+score.win;
+      tie_element.textContent='Tie: '+score.tie;
+      lost_elemnet.textContent='Lost: '+score.lost;
+    }
+    setScores();
     let eveluvation = (choice)=>{
       user_choice.textContent='You chose: '+choice;
       let cuhoise='';
@@ -58,12 +113,21 @@
       }
       
       if(choice===cuhoise){
+        score.tie++;
+        setScores();
         result.textContent='result: Tie 👔'
       }else if(choice==='🪨'&&cuhoise==='✂️' || choice==='✂️' && cuhoise==='📃' || choice==='📃'&& cuhoise==='🪨'){
+        score.win++;
+        setScores();
         result.textContent='result: You Win 🏆'
       }else{
+        score.lost++;
+        setScores();
         result.textContent='result: You lost 😵‍💫'
       }
+      
+      localStorage.setItem("score",JSON.stringify(score));
+      
     }
   </script>
 </body>
